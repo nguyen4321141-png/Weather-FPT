@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Weather & Activities</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      #map {
+        position: absolute;
+        height: 80vh;
+        width: 98%;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+  </head>
+  <body>
+    <header id="mainHeader">
+      <div class="header-inner">
+        <a href="./index.html" style="text-decoration: none; color: aliceblue;"><h1 id="greeting">WeatherActive</h1></a>
+
+        <div
+          class="search-container"
+          role="search"
+          aria-label="location and date"
+        >
+          <input
+            id="locationInput"
+            type="text"
+            placeholder="Enter location..."
+            aria-label="location"
+          />
+          <!-- reverted date picker (input[type=date]) -->
+          <input
+            id="datePicker"
+            type="date"
+            aria-label="choose date"
+            required
+          />
+          <button id="goBtn" class="go-btn" aria-label="get forecast">
+            Go
+          </button>
+          <span
+            id="dateHelp"
+            class="date-help"
+            style="
+              display: none;
+              margin-top: 6px;
+              font-size: 0.9rem;
+              color: #c0392b;
+            "
+            >Please pick a date to proceed.</span
+          >
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Big map shown initially -->
+      <div id="map" class="map big-map"></div>
+
+      <div id="loading" class="loading" aria-live="polite">
+        Fetching your weather & activities...
+      </div>
+
+      <!-- Content (hidden until "Go") -->
+      <div id="content" class="content" aria-hidden="true">
+        <div class="top-row">
+          <!-- Small map that replaces the big one -->
+          <div
+            id="mapSmall"
+            class="map small-map"
+            aria-hidden="true"
+            style="display: none"
+          >
+            [ Map — small ]
+          </div>
+
+          <section class="weather" aria-label="weather forecast">
+            <div class="result-box" id="result" style="display: none;">
+              <div id="timeButtons">
+                
+              </div>
+            </div>
+          </section>
+
+          <section class="activities" aria-label="suggested activities">
+            <h2>Suggested Activities</h2>
+            <div id="activitiesContainer">
+              <!-- Dynamic activity cards will appear here -->
+            </div>
+          
+            <!-- Placeholder for future Google Reviews box -->
+            <div id="reviewsBox" class="reviews-box">
+              <h4>Reviews (coming soon)</h4>
+              <p></p>
+            </div>
+          </section>
+      </div>
+    </main>
+
+    <footer>
+      <p>© 2025 Weather & Activities — <a href="./aboutus.html">About Us</a></p>
+    </footer>
+
+    <script src="./map.js"></script>
+    <script src="weatherfetch.js"></script>
+    <script src="activities.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

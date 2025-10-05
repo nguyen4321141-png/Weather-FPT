@@ -1,0 +1,252 @@
+/* Basic page layout */
+:root {
+    --accent: #6da5d0cd;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%) ;
+    color: #757384;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Sticky header (full-width). Inner content will become the small rounded box when .shrink is set. */
+  header#mainHeader {
+    position: sticky;
+    top: 0;
+    z-index: 1200;
+    background: var(--accent);
+    color: #fff;
+    padding: 1rem 0;
+    transition: padding 280ms cubic-bezier(.2,.9,.2,1), background 280ms;
+  }
+  
+  /* Inner wrapper (centers content). On shrink, this becomes the floating rounded box */
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 320ms ease;
+  }
+
+  
+  
+  /* Greeting/title (hidden when shrink) */
+  #mainHeader h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    text-align: center;
+  }
+  
+  /* Search container */
+  .search-container {
+    margin-top: .6rem;
+    display: flex;  
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
+  /* Inputs & button */
+  .search-container input[type="text"],
+  .search-container input[type="date"] {
+    padding: .55rem .7rem;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 0.95rem;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    color: black;
+  }
+  .search-container input[type="text"] { width: 220px; }
+  .search-container input[type="date"] { width: 160px; }
+  
+  .go-btn {
+    padding: .55rem .9rem;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    background: #fff;
+    color: var(--accent);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  .go-btn:active { transform: translateY(1px); }
+  
+  
+  /* --- Shrinked header visual: header stays full-width but inner becomes centered rounded box --- */
+  header.shrink {
+    padding: 0.45rem 0;
+    /* keep accent subtle */
+    background: rgba(74, 145, 226, 0);
+  }
+  header.shrink .header-inner {
+    width: fit-content;
+    background: rgba(255,255,255,0.12);
+    padding: 6px 12px;
+    border-radius: 1000px;
+    box-shadow: 0 8px 18px rgba(15,23,42,0.06);
+    flex-direction: row;
+    align-items: center;
+    gap: 0.45rem;
+    transform: translateY(-6px);
+  }
+  header.shrink h1 { display: none; }
+  
+  /* shrink inputs visually */
+  header.shrink .search-container input[type="text"] { width: 120px; padding: .4rem .6rem; font-size: .88rem; border-radius: 18px; margin-bottom: 10px;}
+  header.shrink .search-container input[type="date"] { width: 120px; padding: .35rem .55rem; font-size: .86rem; border-radius: 14px; margin-bottom: 10px;}
+  header.shrink .go-btn { padding: .35rem .65rem; font-size: .86rem; border-radius: 18px; margin-bottom: 10px;}
+  
+  /* Main content */
+  main {
+    padding: 1rem;
+    min-height: calc(100vh - 140px);
+  }
+
+  
+   map placeholders */
+  .map {
+    border-radius: 10px;
+    background: linear-gradient(180deg,#e7efff,#d8e9ff);
+    border: 1px solid rgba(20,30,60,0.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #224;
+  }
+  .big-map {
+    height: 60vh;
+    transition: all 560ms cubic-bezier(.2,.9,.2,1);
+  }
+  .small-map {
+    width: 260px;
+    height: 360px;
+    flex-shrink: 0;
+    transition: all 400ms ease;
+    will-change: transform;
+  }
+  
+  /* content hidden initially */
+  .result-box { display: none; opacity: 0; transition: opacity 280ms ease; }
+  .result-box.show { display: block; opacity: 1; }
+  
+  /* top row layout */
+  .top-row {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  #result{
+    display: block;
+  }
+  
+  /* Weather card */
+  .weather {
+    flex: 1;
+    background: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 6px 18px rgba(12,18,32,0.04);
+  }
+  .today { font-size: 1.25rem; margin: .4rem 0; }
+  .day-selector { display: flex; gap: .25rem; margin-top: .6rem; flex-wrap: nowrap; }
+  .day-btn {
+    background: rgba(0,0,0,0.03);
+    border: none;
+    padding: .35rem .6rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .day-.active { background: #e6f0ff; color: var(--accent); }
+
+  .time-.active { background: #e6f0ff; color: var(--accent); }
+  
+  /* details & activities */
+  .day-details {
+    margin-top: 0.9rem;
+    padding: .85rem;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    background: #fbfdff;
+  }
+  .activities {
+    margin-top: 1rem;
+    background: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 6px 18px rgba(12,18,32,0.04);
+  }
+  .activity-card { background: #f0f4ff; padding: .9rem; border-radius: 8px; margin-top: .55rem; }
+  
+  /* reviews placeholder */
+  .reviews-box { margin-top: .75rem; padding: .85rem; border: 1px dashed #e6eefc; border-radius: 8px; }
+  
+  /* Search suggestions styling */
+  .suggestion-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.2s ease;
+  }
+  .suggestion-item:hover {
+    background-color: #f0f4ff;
+  }
+  .suggestion-item:last-child {
+    border-bottom: none;
+  }
+  
+  /* loading */
+  .loading { text-align: center; padding: .6rem 0; display: none; color: #334; }
+  .loading.show { display: block; animation: pulse 1.4s infinite; }
+  @keyframes pulse { 0%,100%{opacity:.35}50%{opacity:1} }
+  
+  /* footer */
+  footer { padding: .9rem 1rem; text-align: center; color:#0930f6; background-color: #717db811; margin-top: 1rem; }
+  
+  /* Responsive */
+  @media (max-width: 900px) {
+    .top-row { flex-direction: column; }
+    .small-map { display: none; }
+    header.shrink .header-inner { padding: 6px 10px; }
+  }
+
+  .logo{
+    width: 50px;
+    border-radius: 1000px;
+    margin: 0px 10px;
+  }
+
+  .header-left{
+    display: flex;
+  }
+
+  .Intro{
+    width: 80%;
+    padding: 10px;
+    font-size: large;
+  }
+
+  .Purpose{
+    width: 80%;
+    padding: 10px;
+    font-size: large;
+  }
+
+  .members{
+    width: 80%;
+    padding: 10px;
+    font-size: large;
+  }
+
